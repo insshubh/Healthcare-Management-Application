@@ -1,6 +1,8 @@
 package com.pm.patient_service.model;
 
 import java.time.LocalDate;
+import java.time.Period;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Email;
 import jakarta.persistence.Column;
@@ -9,6 +11,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
 import java.util.UUID;
+
+import org.springframework.data.annotation.Transient;
 
 @Entity
 public class Patient {
@@ -19,7 +23,7 @@ public class Patient {
 
 	@NotNull
 	private String name;
-	private int age;
+	
 
 	@NotNull
 	@Email
@@ -31,7 +35,8 @@ public class Patient {
 
 	@NotNull
 	private LocalDate dateOfBirth;
-
+	
+	@Column(name = "REGISTERED_DATE")
 	@NotNull
 	private LocalDate registrationDate;
 
@@ -41,7 +46,13 @@ public class Patient {
 	public UUID getId() {
 		return id;
 	}
+ 
+	@Transient
+	public int getAge() {
+	    return Period.between(dateOfBirth, LocalDate.now()).getYears();
+	}
 
+	
 	/**
 	 * @param id the id to set
 	 */
@@ -63,23 +74,7 @@ public class Patient {
 		this.name = name;
 	}
 
-	/**
-	 * @return the age
-	 */
-	public int getAge() {
-		return age;
-	}
-
-	/**
-	 * @param age the age to set
-	 */
-	public void setAge(int age) {
-		this.age = age;
-	}
-
-	/**
-	 * @return the email
-	 */
+	
 	public String getEmail() {
 		return email;
 	}
