@@ -1,13 +1,13 @@
 package com.pm.patient_service.Service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.pm.patient_service.DTO.PatientResponseDTO;
 import com.pm.patient_service.Repository.PatientRepository;
 import com.pm.patient_service.mapper.PatientMapper;
 import com.pm.patient_service.model.Patient;
-
-import java.util.List;
 
 @Service
 public class PatientService {
@@ -25,5 +25,4 @@ public class PatientService {
 				.filter(response -> response != null).toList();
 		return responseListDTO;
 	}
-
 }
